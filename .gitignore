@@ -1,0 +1,7 @@
+build/
+dist/
+lief.egg-info/dependency_links.txt
+lief.egg-info/not-zip-safe
+lief.egg-info/PKG-INFO
+lief.egg-info/SOURCES.txt
+lief.egg-info/top_level.txt
