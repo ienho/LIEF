@@ -32,6 +32,12 @@ def is_pr(ci):
     logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
     logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
     
+    for file in DIST_DIR.glob("*.whl"):
+        logger.info("file %s", file)
+        logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+        new_packages_info[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+        shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+
     if ci == CI.TRAVIS:
         cond1 = os.getenv("TRAVIS_EVENT_TYPE", "pull_request") == "pull_request"
         cond2 = not (os.getenv("TRAVIS_REPO_SLUG", "").startswith("lief-project/") or os.getenv("TRAVIS_REPO_SLUG", "").startswith("romainthomas/LIEF"))
