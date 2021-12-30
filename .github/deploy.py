@@ -31,12 +31,6 @@ def is_pr(ci):
     logger.info("os.getenv(APPVEYOR_PULL_REQUEST_NUMBER: %s", os.getenv("APPVEYOR_PULL_REQUEST_NUMBER", ""))
     logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
     logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
-    
-    for file in DIST_DIR.glob("*.whl"):
-        logger.info("file %s", file)
-        logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
-        new_packages_info[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-        shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
 
     if ci == CI.TRAVIS:
         cond1 = os.getenv("TRAVIS_EVENT_TYPE", "pull_request") == "pull_request"
@@ -197,13 +191,13 @@ SSH_AGENT   = shutil.which("ssh-agent")
 SSH_ADD     = shutil.which("ssh-add")
 SSH_KEYSCAN = shutil.which("ssh-keyscan")
 
-if DEPLOY_KEY is None:
-    logger.error("Deploy key is not set!")
-    sys.exit(1)
+# if DEPLOY_KEY is None:
+#     logger.error("Deploy key is not set!")
+#     sys.exit(1)
 
-if DEPLOY_IV is None:
-    logger.error("Deploy IV is not set!")
-    sys.exit(1)
+# if DEPLOY_IV is None:
+#     logger.error("Deploy IV is not set!")
+#     sys.exit(1)
 
 
 #####################
@@ -268,6 +262,12 @@ for cmd in cmds:
 
     if p.returncode:
         sys.exit(1)
+
+for file in DIST_DIR.glob("*.whl"):
+    logger.info("file %s", file)
+    logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+    new_packages_info[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
 
 for file in DIST_DIR.glob("*.whl"):
     logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
