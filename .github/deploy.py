@@ -181,9 +181,9 @@ DIST_DIR111           = REPODIR / "dist"
 new_packages_info11 = {}
 for file in DIST_DIR111.glob("*.whl"):
     logger.info("file %s", file)
-    logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+    logger.debug("Copying '%s' to '%s'", file.as_posix(), REPODIR.as_posix())
     new_packages_info11[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-    shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+    shutil.copy(file.as_posix(), REPODIR.as_posix())
 
 
 logger.debug("Working directory: %s", CI_CWD)
