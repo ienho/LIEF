@@ -42,22 +42,22 @@ void init_objects(py::module& m) {
   CREATE(SymbolCommand, m);
   CREATE(SegmentCommand, m);
   CREATE(Section, m);
-  CREATE(MainCommand, m);
+  // CREATE(MainCommand, m);
   CREATE(DynamicSymbolCommand, m);
-  CREATE(DylinkerCommand, m);
+  // CREATE(DylinkerCommand, m);
   CREATE(DyldInfo, m);
   CREATE(DylibCommand, m);
-  CREATE(ThreadCommand, m);
-  CREATE(RPathCommand, m);
+  // CREATE(ThreadCommand, m);
+  // CREATE(RPathCommand, m);
   CREATE(Symbol, m);
   CREATE(Relocation, m);
   CREATE(RelocationObject, m);
   CREATE(RelocationDyld, m);
   CREATE(BindingInfo, m);
-  CREATE(ExportInfo, m);
-  CREATE(FunctionStarts, m);
+  // CREATE(ExportInfo, m);
+  // CREATE(FunctionStarts, m);
   CREATE(CodeSignature, m);
-  CREATE(DataInCode, m);
+  // CREATE(DataInCode, m);
   CREATE(DataCodeEntry, m);
   CREATE(SourceVersion, m);
   CREATE(VersionMin, m);
@@ -67,6 +67,7 @@ void init_objects(py::module& m) {
   CREATE(EncryptionInfo, m);
   CREATE(BuildVersion, m);
   CREATE(FilesetCommand, m);
+
 }
 
 }
