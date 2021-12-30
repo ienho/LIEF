@@ -151,13 +151,13 @@ REPODIR    = CURRENTDIR.parent
 DEPLOY_KEY = os.getenv("LIEF_AUTOMATIC_BUILDS_KEY", None)
 DEPLOY_IV  = os.getenv("LIEF_AUTOMATIC_BUILDS_IV", None)
 
-if DEPLOY_KEY is None or len(DEPLOY_KEY) == 0:
-    logger.error("Deploy key is not set!")
-    sys.exit(1)
+# if DEPLOY_KEY is None or len(DEPLOY_KEY) == 0:
+#     logger.error("Deploy key is not set!")
+#     sys.exit(1)
 
-if DEPLOY_IV is None or len(DEPLOY_IV) == 0:
-    logger.error("Deploy IV is not set!")
-    sys.exit(1)
+# if DEPLOY_IV is None or len(DEPLOY_IV) == 0:
+#     logger.error("Deploy IV is not set!")
+#     sys.exit(1)
 
 GIT_USER  = "lief-{}-ci".format(CI_PRETTY_NAME)
 GIT_EMAIL = "lief@quarkslab.com"
@@ -176,6 +176,14 @@ PYPI_PACKAGE_DIR      = LIEF_PACKAGE_DIR / "lief"
 JSON_PACKAGE          = LIEF_PACKAGE_DIR / "packages.json"
 DIST_DIR              = REPODIR / "dist"
 BUILD_DIR             = REPODIR / "build"
+
+DIST_DIR111           = REPODIR / "dist"
+new_packages_info11 = {}
+for file in DIST_DIR111.glob("*.whl"):
+    logger.info("file %s", file)
+    logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
+    new_packages_info11[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
 
 
 logger.debug("Working directory: %s", CI_CWD)
@@ -262,12 +270,6 @@ for cmd in cmds:
 
     if p.returncode:
         sys.exit(1)
-
-for file in DIST_DIR.glob("*.whl"):
-    logger.info("file %s", file)
-    logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
-    new_packages_info[file.name] = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-    shutil.copy(file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
 
 for file in DIST_DIR.glob("*.whl"):
     logger.debug("Copying '%s' to '%s'", file.as_posix(), PYPI_PACKAGE_DIR.as_posix())
