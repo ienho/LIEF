@@ -25,6 +25,12 @@ def pretty_ci_name(ci):
     return str(ci).split(".")[-1].replace("_", "-").lower()
 
 def is_pr(ci):
+    logger.info("isptr: %s", ci)
+    logger.info("os.getenv(TRAVIS_REPO_SLUG: %s", os.getenv("TRAVIS_REPO_SLUG", ""))
+    logger.info("os.getenv(APPVEYOR_PULL_REQUEST_NUMBER: %s", os.getenv("APPVEYOR_PULL_REQUEST_NUMBER", ""))
+    logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
+    logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
+    
     if ci == CI.TRAVIS:
         cond1 = os.getenv("TRAVIS_EVENT_TYPE", "pull_request") == "pull_request"
         cond2 = not (os.getenv("TRAVIS_REPO_SLUG", "").startswith("lief-project/") or os.getenv("TRAVIS_REPO_SLUG", "").startswith("romainthomas/LIEF"))
