@@ -26,6 +26,7 @@ def pretty_ci_name(ci):
 
 def is_pr(ci):
     logger.info("isptr: %s", ci)
+    logger.info("GITHUB_HEAD_REF: %s", os.getenv("GITHUB_HEAD_REF", ""))
     logger.info("os.getenv(TRAVIS_REPO_SLUG: %s", os.getenv("TRAVIS_REPO_SLUG", ""))
     logger.info("os.getenv(APPVEYOR_PULL_REQUEST_NUMBER: %s", os.getenv("APPVEYOR_PULL_REQUEST_NUMBER", ""))
     logger.info("os.getenv(GITHUB_REPOSITORY: %s", os.getenv("GITHUB_REPOSITORY", ""))
@@ -47,7 +48,7 @@ def is_pr(ci):
         return cond1 or cond2
     elif ci == CI.GITHUB_ACTIONS:
         cond1 = os.getenv("GITHUB_HEAD_REF", "") != ""
-        cond2 = not (os.getenv("GITHUB_REPOSITORY", "").startswith("lief-project/") or os.getenv("GITHUB_REPOSITORY", "").startswith("romainthomas/LIEF"))
+        cond2 = not (os.getenv("GITHUB_REPOSITORY", "").startswith("lief-project/") or os.getenv("GITHUB_REPOSITORY", "").startswith("ienho/LIEF"))
         return cond1 or cond2
     elif ci == CI.LOCAL:
         return False
