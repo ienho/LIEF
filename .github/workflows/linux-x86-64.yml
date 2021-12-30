@@ -91,22 +91,22 @@ jobs:
             -v $GITHUB_WORKSPACE:/src \
             -v $HOME/.ccache:/ccache \
             liefproject/manylinux2014_x86_64 bash /src/scripts/docker/travis-linux-sdk.sh
-      # - name: Deploy
-      #   env:
-      #     LIEF_AUTOMATIC_BUILDS_KEY: ${{ secrets.LIEF_AUTOMATIC_BUILDS_KEY }}
-      #     LIEF_AUTOMATIC_BUILDS_IV: ${{ secrets.LIEF_AUTOMATIC_BUILDS_IV }}
-      #   shell: bash
-      #   run: |
-      #     docker run \
-      #       -v $GITHUB_WORKSPACE:/src \
-      #       -e GITHUB_ACTIONS="true" \
-      #       -e GITHUB_WORKSPACE=$GITHUB_WORKSPACE \
-      #       -e GITHUB_REF=$GITHUB_REF \
-      #       -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
-      #       -e LIEF_AUTOMATIC_BUILDS_KEY=$LIEF_AUTOMATIC_BUILDS_KEY \
-      #       -e LIEF_AUTOMATIC_BUILDS_IV=$LIEF_AUTOMATIC_BUILDS_IV \
-      #       --rm \
-      #       liefproject/deploy python3 /src/.github/deploy.py
+      - name: Deploy
+        env:
+          LIEF_AUTOMATIC_BUILDS_KEY: ${{ secrets.LIEF_AUTOMATIC_BUILDS_KEY }}
+          LIEF_AUTOMATIC_BUILDS_IV: ${{ secrets.LIEF_AUTOMATIC_BUILDS_IV }}
+        shell: bash
+        run: |
+          docker run \
+            -v $GITHUB_WORKSPACE:/src \
+            -e GITHUB_ACTIONS="true" \
+            -e GITHUB_WORKSPACE=$GITHUB_WORKSPACE \
+            -e GITHUB_REF=$GITHUB_REF \
+            -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY \
+            -e LIEF_AUTOMATIC_BUILDS_KEY=$LIEF_AUTOMATIC_BUILDS_KEY \
+            -e LIEF_AUTOMATIC_BUILDS_IV=$LIEF_AUTOMATIC_BUILDS_IV \
+            --rm \
+            liefproject/deploy python3 /src/.github/deploy.py
       - name: Trigger documentation
         env:
           CIRCLE_CI_TOKEN: ${{ secrets.CIRCLE_CI_TOKEN }}
